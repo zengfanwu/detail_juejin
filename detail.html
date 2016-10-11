@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>强大的CSS</title>
+  <style media="screen">
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    *, :after, :before{
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    html{
+      font-family: sans-serif;
+    }
+
+    body{
+      color: #333;
+      font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
+      text-rendering: optimizeLegibility;
+      background-color: #fff;
+    }
+
+    @font-face{
+      font-family:Ionicons;
+      src:url("/fonts/ionicons.eot");
+      src:url("/fonts/ionicons.eot") format("embedded-opentype"),
+      url("/fonts/ionicons.ttf") format("truetype"),
+      url("/fonts/ionicons.woff") format("woff"),
+      url("/fonts/ionicons.svg") format("svg");
+      font-weight:400;
+      font-style:normal;
+    }
+
+    a{
+      background-color: transparent;
+    }
+
+    a{
+      color: #333;
+      text-decoration: none;
+      -webkit-transition: color .3s;
+      transition: color .3s;
+    }
+
+    img{
+      border: 0;
+    }
+
+    button, input, optgroup, select, textarea{
+      color: inherit;
+      font: inherit;
+      margin: 0;
+    }
+
+    button{
+      overflow: visible;
+    }
+
+    button,select{
+      text-transform: none;
+    }
+
+    button, html input[type=button], input[type=reset], input[type=submit]{
+      -webkit-appearance: button;
+      cursor: pointer;
+    }
+
+    textarea{
+      overflow: auto;
+      resize: none;
+    }
+
+    .button, button, input[type=submit]{
+      -webkit-appearance: none;
+      background: #007fff;
+      color: #fff;
+      border-radius: 2px;
+      border: none;
+      padding: .5em 1em;
+    }
+
+    .button+.button, .button+button, .button+input[type=submit], button+.button, button+button, button+input[type=submit], input[type=submit]+.button, input[type=submit]+button, input[type=submit]+input[type=submit]{
+      margin-left: 1em;
+    }
+
+    .button{
+      cursor: pointer;
+    }
+
+    .editable, input[type=password], input[type=text], input[type=url], select, textarea{
+      padding: .7em;
+      width: 100%;
+      display: block;
+      border: none;
+      box-shadow: none;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      -webkit-transition: border .3s;
+      transition: border .3s;
+      background: #fff;
+    }
+
+    a.button{
+      color: #fff;
+    }
+
+    .alerts, .box-list, .comments, .dropdown-list, .entry-detail-body .recommend-box .entry-list, .horizontal-nav .actions, .new-comment-card .comment-actions .actions, .post-view .post-meta .actions, .post-view ul.users-list, .related-users, .ul-clear, .users-list, header .actions, nav .actions{
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+    }
+
+    .alerts{
+      position: fixed;
+      z-index: 9999;
+      top: 4em;
+      right: .5em;
+      width: 10em;
+      color: #666;
+    }
+
+    .alerts .alert{
+      cursor:pointer;
+      position: relative;
+      right: -15em;
+      padding:.5em .8em;
+      margin:.5em 0;
+      color:rgba(0,127,255,.8);
+      border:1px solid rgba(0,127,255,.5);
+      background-color:#e6f2ff;
+      font-size:.8em;
+      -webkit-transition:color .3s,border-color .3s,opacity .3s,-webkit-transform 1s;
+      transition:color .3s,border-color .3s,opacity .3s,-webkit-transform 1s;
+      transition:color .3s,border-color .3s,opacity .3s,transform 1s;
+      transition:color .3s,border-color .3s,opacity .3s,transform 1s,-webkit-transform 1s
+    }
+
+    .alerts .alert:active,.alerts .alert:hover{
+      color:#007fff;
+      border-color:#007fff
+    }
+
+    .main{
+      margin-top: 4em;
+    }
+
+    .entry-detail, .hero-cover, .users-list-cover{
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .entry-detail{
+      display: -webkit-flex;
+      display: -ms-flex;
+      display: flex;
+      -webkit-box-orient:vertical;
+      -webkit-box-direction:normal;
+      flex-direction: column;
+      background-color: #fff;
+      z-index: 8;
+      overflow: hidden;
+    }
+
+    .entry-detail-main-area{
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .entry-detail-container, .entry-detail-main-area{
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .entry-detail .entry-close{
+      position: fixed;
+      font-size: 4em;
+      left: 1em;
+      top: .5em;
+      cursor: pointer;
+      color: #666;
+      -webkit-transition: color .3s;
+      transition: color .3s;
+    }
+
+    .ion-ios-close-outline:before,.ion-arrow-up-b:before,.ion-more:before{
+      display: inline-block;
+      font-family: Ionicons;
+      speak: none;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      text-rendering: auto;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .ion-ios-close-outline:before{
+      content: "\F405";
+    }
+
+    .entry-detail-container{
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      width: 960px;
+      max-width: 90%;
+      min-height: 100%;
+      background-color: #fff;
+      margin: 0 auto;
+    }
+
+    .background-cover, .entry-view .entry-hero, .post-view .post-hero{
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .entry-detail-header{
+      position: relative;
+      height: 12.5em;
+      background-color: #007fff;
+    }
+
+    .box-cover, .entry-detail-header:before{
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .entry-detail-header:before{
+      content: '';
+      display: block;
+      background-color: rgba(0, 0, 0, 0.4);;
+    }
+
+    .entry-detail-header .entry-close{
+      display: none;
+    }
+
+    .entry-detail-header .entry-box{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 0 2em 2.2em 4em;
+    }
+
+    .clearfix:after, .clearfix:before, .horizontal-nav:after, .horizontal-nav:before, .new-comment-card .comment-actions:after,
+    .new-comment-card .comment-actions:before, .post-view .post-meta:after, .post-view .post-meta:before, .users-list-item:after,
+    .users-list-item:before, header:after, header:before, nav:after, nav:before{
+      content: ' ';
+      display: table;
+    }
+
+    .entry-detail-header .entry-box .title{
+      display: block;
+      color: #fff;
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+
+    .float-right{
+      float: right;
+    }
+
+    .entry-detail-header .tags{
+      position: absolute;
+      bottom: 2.2em;
+      right: 2em;
+    }
+
+    .clearfix:after, .horizontal-nav:after, .new-comment-card .comment-actions:after,
+    .post-view .post-meta:after, .users-list-item:after, header:after, nav:after{
+      clear: both;
+    }
+
+    .entry-detail-header .entry-box .action-box{
+      margin-top: .8em;
+    }
+
+    .entry-detail-header .entry-box .action-box .original-url-button{
+      font-size: .9em;
+      font-weight: 700;
+    }
+
+    .entry-detail-header .entry-box .action-box .entry-collection-button{
+      font-size: .9em;
+      background-color: #fff;
+      color: #333;
+      -webkit-transition: color,.3s;
+      transition: color,.3s;
+      font-weight: 700;
+    }
+
+    .entry-detail-header .entry-box .action-box .entry-collection-button.collected, .entry-detail-header .entry-box .action-box .entry-collection-button:hover{
+      color: #007fff;
+      -webkit-transition: color,.3s;
+      transition: color,.3s;
+    }
+
+    .ion-arrow-up-b:before{
+      content: "\F10D";
+    }
+
+    i+i, i+span, span+i{
+      margin-left: .5em;
+    }
+
+    .entry-detail-body .users-list, .flex, .settings .settings-cell{
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-lines: multiple;
+      -moz-box-lines: multiple;
+      box-lines: multiple;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+
+    .entry-detail-body{
+      -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+      flex: 1 0 auto;
+    }
+
+    .entry-detail-body .users-list>.action, .flex>.action, .settings .settings-cell>.action{
+      display: inline-block;
+      -webkit-box-flex: 1;
+      box-flex: 1;
+      -moz-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+    }
+
+    .entry-detail-body .entry-detail-left{
+      border-left: 1px solid #f1f1f1;
+      border-right: 1px solid #f1f1f1;
+    }
+
+    .entry-detail-body .editor{
+      position: relative;
+      border-bottom: 1px solid #f1f1f1;
+      padding: 2em 2em .4em 8em;
+    }
+
+    img.avatar{
+      display: inline-block;
+      width: 3em;
+      height: 3em;
+      border-radius: 50%;
+    }
+
+    .entry-detail-body .editor .avatar{
+      position: absolute;
+      height: 2em;
+      width: 2em;
+      left: 5.5em;
+      top: 2em;
+      cursor: pointer;
+    }
+
+    .text-a, .text-link{
+      cursor: pointer;
+      color: #333;
+      -webkit-transition: color .3s;
+      transition: color .3s;
+    }
+
+    .entry-detail-body .editor .editor-meta .user-job-title, .entry-detail-body .editor .editor-meta .user-name{
+      line-height: 2em;
+      margin-right: .5em;
+    }
+
+    .entry-detail-body .editor .editor-meta .user-job-title{
+      display: inline-block;
+      color: #909090;
+      font-size: .8em;
+      overflow: hidden;
+      max-width: 200px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+
+    .entry-detail-body .editor .editor-meta .entry-meta-info{
+      float: right;
+      color: #909090;
+      font-size: .8em;
+      line-height: 2.8em;
+      white-space: nowrap;
+    }
+
+    .entry-detail-body .editor .editor-content{
+      padding: .2em .5em .2em 1em;
+      border-left: 2px solid #ddd;
+      word-break: break-all;
+    }
+
+    .entry-detail-body .comment-box{
+      padding: 2em 2em 2em 5em;
+    }
+
+    .new-comment{
+      color: #666;
+    }
+
+    .new-comment-card{
+      position: relative;
+      background-color: #f8f9fa;
+      border: 1px solid #f1f1f1;
+      border-radius: 4px;
+      padding: 1em 1em 1em 4.5em;
+    }
+
+    .new-comment-card .avatar{
+      position: absolute;
+      left: 1.5em;
+      top: 1em;
+      width: 2.5em;
+      height: 2.5em;
+    }
+
+    .new-comment-input{
+      padding: .5em;
+      border: 1px solid #ddd;
+    }
+
+    .editable:focus, .editable:hover, input[type=password]:focus, input[type=password]:hover, input[type=text]:focus, input[type=text]:hover, input[type=url]:focus, input[type=url]:hover, select:focus, select:hover, textarea:focus, textarea:hover{
+      border-color: #007fff;
+    }
+
+    .new-comment-card .new-comment-input{
+      height: 2.5em;
+      line-height: 1.4em;
+      border-radius: 4px;
+    }
+
+    .new-comment-card .comment-actions{
+      margin-top: 1em;
+    }
+
+    .horizontal-nav .actions, .new-comment-card .comment-actions .actions, .post-view .post-meta .actions, header .actions, nav .actions{
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .horizontal-nav .actions.secondary, .new-comment-card .comment-actions .actions.secondary, .post-view .post-meta .actions.secondary, header .actions.secondary, nav .actions.secondary{
+      float: right;
+    }
+
+    .new-comment-card .comment-tips{
+      margin-right: 1em;
+      font-size: .8em;
+      color: #909090;
+    }
+
+    .horizontal-nav .action, .new-comment-card .comment-actions .action, .post-view .post-meta .action, header .action, nav .action{
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .new-comment-card .comment-actions button{
+      color: #fff;
+    }
+
+    .alerts, .box-list, .comments, .dropdown-list, .entry-detail-body .recommend-box .entry-list,
+    .horizontal-nav .actions, .new-comment-card .comment-actions .actions, .post-view .post-meta .actions,
+    .post-view ul.users-list, .related-users, .ul-clear, .users-list, header .actions, nav .actions{
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+    }
+
+    .entry-detail-body .comments{
+      padding-bottom: 2em;
+    }
+
+    .entry-detail-body .comments .comment{
+      position: relative;
+      padding: 0 2em 2em 8em;
+    }
+
+    .entry-detail-body .comments .avatar{
+      position: absolute;
+      height: 2em;
+      width: 2em;
+      top: -.25em;
+      left: 5.5em;
+      cursor: pointer;
+    }
+
+    .text-a, .text-link{
+      cursor: pointer;
+      color: #333;
+      -webkit-transition: color .3s;
+      transition: color .3s;
+    }
+
+    .comment-user-meta .user-job-title, .comment-user-meta .user-name{
+      margin-right: .5em;
+    }
+
+    .comment-user-meta .user-job-title{
+      display: inline-block;
+      color: #909090;
+      font-size: .8em;
+      overflow: hidden;
+      max-width: 200px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      vertical-align: text-bottom;
+    }
+
+    .comment-content{
+      margin: .3em 0 .5em;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .comment-meta{
+      margin-top: .5em;
+      font-size: .8em;
+      color: #909090;
+    }
+
+    .comment-like-box{
+      display: inline-block;
+      padding: .1em .5em;
+      border-radius: 2px;
+      background-color: hsla(0,0%,95%,.8);
+      cursor: pointer;
+      -webkit-transition: color .3s;
+      transition: color .3s;
+    }
+
+    .box-content .box-meta .action, .comment-meta .action, .entry-view .entry-meta .action, .inline-nav .action, .post-view .post-info-mobile .action{
+      display: inline-block;
+    }
+
+    .comment-meta .action{
+      line-height: 1.6em;
+    }
+
+    .comment-like-box.true, .comment-like-box:hover{
+      color: #007fff;
+      background-color: rgba(0,127,255,.1);
+    }
+
+    .comment-like-box .like-icon{
+      width: 1em;
+      text-align: center;
+    }
+
+    .box-content .box-meta .action+.action, .comment-meta .action+.action, .entry-view .entry-meta .action+.action, .inline-nav .action+.action, .post-view .post-info-mobile .action+.action{
+      margin-left: 1em;
+    }
+
+    .comment.hint{
+      color: #ddd;
+      padding: 0 2em 2em 8em;
+    }
+
+
+    /*右侧边栏*/
+    .entry-detail-body .entry-detail-right{
+      width: 300px;
+      padding: 0 2em;
+      border-right: 1px solid #f1f1f1;
+      background-color: #f8f9fa;
+    }
+
+    .entry-detail-body .entry-detail-right .sub-title{
+      margin: 2em 0 1em;
+    }
+
+    .tag{
+      line-height: 1.5em;
+      display: inline-block;
+      font-size: .8em;
+      padding: 0 .5em;
+      border: 1px solid #f1f1f1;
+      color: #909090;
+      -webkit-transition: color .3s,border-color .3s,background-color .3s;
+      transition: color .3s,border-color .3s,background-color .3s;
+    }
+
+    .tags .tag{
+      cursor: pointer;
+      margin-right: .6em;
+      padding: .2em .7em;
+      border-radius: 2px;
+    }
+
+    .tags.cloud .tag{
+      margin-top: .3em;
+      margin-bottom: .3em;
+    }
+
+    .entry-detail-body .share-box .tag{
+      position: relative;
+      border-radius: 4em;
+      border: 1px solid #ddd;
+      background-color: transparent;
+      font-size: .8em;
+      padding: .2em 1.3em;
+      cursor: pointer;
+    }
+
+    img.inline{
+      height: 1.3em;
+      vertical-align: bottom;
+    }
+
+    img.inline+span, span+img.inline{
+      margin-left: .5em;
+    }
+
+    .entry-detail-body .share-box .wechat-qr-box{
+      position: absolute;
+      background: #fff;
+      width: 10em;
+      height: 10em;
+      top: 2em;
+      left: -1.5em;
+      z-index: 2;
+      padding: .3em;
+      box-shadow: 0 .5em .5em #ddd;
+      -webkit-transform: scale(0);
+      transform: scale(0);
+      -webkit-transform-origin: top center;
+      transform-origin: top center;
+      -webkit-transition: -webkit-transform .3s;
+      transition: -webkit-transform .3s;
+      transition: transform .3s;
+      transition: transform .3s,-webkit-transform .3s;
+    }
+
+    .entry-detail-body .share-box .tag:hover .wechat-qr-box{
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+
+    .entry-detail-body .share-box .wechat-qr-box .entry-qr{
+      width: 100%;
+      height: 100%;
+    }
+
+    .entry-detail-body .users-list{
+      padding: 0;
+    }
+
+    .users-list-item{
+      padding: .5em;
+    }
+
+    .entry-detail-body .users-list-item{
+      padding: 0;
+      width: 16.6%;
+      margin: .3em 0;
+      cursor: pointer;
+    }
+
+    .users-list-item .avatar{
+      margin-right: 1em;
+    }
+
+    .entry-detail-body .users-list-item .avatar{
+      width: 2em;
+      height: 2em;
+      margin-right: 0;
+    }
+
+    .entry-detail-body .users-list-item .more-users{
+      width: 2em;
+      height: 2em;
+      border-radius: 100%;
+      background-color: #fff;
+      text-align: center;
+      cursor: pointer;
+      color: #909090;
+      -webkit-transition: color .3s;
+      transition: color .3s;
+    }
+
+    .entry-detail-body .users-list-item .more-users .ion-more{
+      line-height: 2em;
+    }
+
+    .ion-more:before{
+      content: "\F20B";
+    }
+
+    .entry-detail-body .recommend-box{
+      padding-bottom: 3em;
+    }
+
+    .entry-detail-body .recommend-box .entry-list{
+      font-size: .8em;
+    }
+
+    .entry-detail-body .recommend-box .entry-item{
+      position: relative;
+      margin: .5em 0 1em;
+    }
+
+    .ellipsis, .tooltip .user-description, .tooltip .user-name, .users-list-item .user-info{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .entry-detail-body .recommend-box .item-collection{
+      color: #909090;
+    }
+
+    .tooltip{
+      position:fixed;
+      z-index:9;
+      border:1px solid #ddd;
+      background:#fff;
+      padding:1em;
+      text-align:center;
+      width:12em;
+      opacity: 0;
+      left:725.5px;
+      top:23.7969px;
+    }
+    .tooltip .user-name{
+      line-height:2;
+    }
+    .tooltip .user-description{
+      color:#666;
+      font-size:.7em;
+    }
+    .tooltip .user-meta{
+      margin-top:1em;
+    }
+    .tooltip .user-meta small{
+      font-size:.7em;
+    }
+
+  </style>
+</head>
+<body>
+  <ul class="alerts"></ul>
+  <div class="main">
+    <div class="entry-detail">
+      <div class="entry-detail-main-area">
+        <i class="ion-ios-close-outline entry-close"></i>
+        <div class="entry-detail-container">
+          <div class="entry-detail-header background-cover" style="background-images:none;">
+            <i class="ion-ios-close-outline entry-close"></i>
+            <div class="entry-box">
+              <div class="title-box clearfix">
+                <a href="#" class="title">强大的CSS</a>
+                <div class="tags float-right"></div>
+              </div>
+              <div class="action-box clearfix">
+                <a href="#" class="button blue original-url-button">阅读原文</a>
+                <button class="entry-collection-button">
+                  <i class="collection-arrow-ion ion-arrow-up-b"></i>
+                  <span>71</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="entry-detail-body flex">
+            <div class="entry-detail-left action">
+              <div class="editor">
+                <img src="http://tva3.sinaimg.cn/crop.0.0.1241.1241.180/92633ca2jw8f3bnx444ffj20yi0yhn17.jpg" alt="" class="avatar">
+                <div class="editor-meta clearfix">
+                  <span class="user-name text-a">小晨欧尼酱</span>
+                  <span class="user-job-title"></span>
+                  <div class="entry-meta-info">
+                    20小时发布790人阅读
+                  </div>
+                </div>
+                <div class="editor-content">
+                  <article>只需要 CSS 不借助 JS 也可以做很多复杂的事情，但是有限制是只适配现代浏览器。</article>
+                </div>
+                <br>
+              </div>
+              <div class="comment-box">
+                <div class="new-comment new-comment-card">
+                  <img src="http://gold.xitu.io/images/default_avatar.svg" alt="" class="avatar">
+                  <textarea class="new-comment-input" placeholder="说说你的看法"></textarea>
+                </div>
+              </div>
+              <ul class="comments">
+                <li class="comment">
+                  <img src="http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHO5sTLEGdPauGibAZJ9HX0mCJodicwdgQRXvCwrNVNbygLJQ5h7a1bl639jbXYNicaw9iceAtFgnLXYg/0" alt="" class="avatar">
+                  <div class="comment-user-meta">
+                    <span class="user-name text-a">旅梦</span>
+                    <span class="user-job-title"></span>
+                  </div>
+                  <div class="comment-content">赞</div>
+                  <div class="comment-meta">
+                    <div class="comment-like-box action">
+                      <i class="ion-arrow-up-b like-icon"></i>
+                      <span class="like-count">1</span>
+                    </div>
+                    <div class="reply action">回复</div>
+                    <div class="action">3小时前</div>
+                  </div>
+                </li>
+                <li class="comment hint">没有更多评论了</li>
+              </ul>
+            </div>
+            <div class="entry-detail-right">
+              <div class="share-box">
+                <div class="sub-title">分享到...</div>
+                <div class="tags cloud">
+                  <a href="#" class="tag">
+                    <img src="http://gold.xitu.io/images/weixin.svg" alt="" class="inline">
+                    <sapn>微信</sapn>
+                    <div class="wechat-qr-box">
+                      <img src="data:image/gif;base64,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" alt="" id="wechatQr" class="entry-qr">
+                    </div>
+                  </a>
+                  <a href="#" class="tag">
+                    <img src="http://gold.xitu.io/images/weibo.svg" alt="" class="inline">
+                    <sapn>微博</sapn>
+                  </a>
+                  <a href="#" class="tag">
+                    <img src="http://gold.xitu.io/images/pocket.svg" alt="" class="inline">
+                    <sapn>Pocket</sapn>
+                  </a>
+                  <a href="#" class="tag">
+                    <img src="http://gold.xitu.io/images/evernote.svg" alt="" class="inline">
+                    <sapn>Evernote</sapn>
+                  </a>
+                </div>
+              </div>
+              <div class="tags-box">
+                <div class="sub-title">标签</div>
+                <div class="tags cloud">
+                  <div class="tag">CSS</div>
+                </div>
+              </div>
+              <div class="collection-users">
+                <div class="sub-title">71人收藏了这篇文章</div>
+                <ul class="users-list">
+                  <li class="users-list-item">
+                    <img src="http://tva4.sinaimg.cn/crop.0.0.640.640.180/4c41eac1jw8eqbaw3nzffj20hs0hst98.jpg" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHA71OThkdgx3pfglsjLG0yfh2420tJBCBV3zc1OQlia86NJ3tsia8g7bpwic9aR7P9Hmd1Z2JWzdpqQ/0" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://tva4.sinaimg.cn/crop.0.0.640.640.180/4c41eac1jw8eqbaw3nzffj20hs0hst98.jpg" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHA71OThkdgx3pfglsjLG0yfh2420tJBCBV3zc1OQlia86NJ3tsia8g7bpwic9aR7P9Hmd1Z2JWzdpqQ/0" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://tva4.sinaimg.cn/crop.0.0.640.640.180/4c41eac1jw8eqbaw3nzffj20hs0hst98.jpg" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHA71OThkdgx3pfglsjLG0yfh2420tJBCBV3zc1OQlia86NJ3tsia8g7bpwic9aR7P9Hmd1Z2JWzdpqQ/0" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://tva4.sinaimg.cn/crop.0.0.640.640.180/4c41eac1jw8eqbaw3nzffj20hs0hst98.jpg" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHA71OThkdgx3pfglsjLG0yfh2420tJBCBV3zc1OQlia86NJ3tsia8g7bpwic9aR7P9Hmd1Z2JWzdpqQ/0" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://tva4.sinaimg.cn/crop.0.0.640.640.180/4c41eac1jw8eqbaw3nzffj20hs0hst98.jpg" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <img src="http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHA71OThkdgx3pfglsjLG0yfh2420tJBCBV3zc1OQlia86NJ3tsia8g7bpwic9aR7P9Hmd1Z2JWzdpqQ/0" alt="" class="avatar">
+                  </li>
+                  <li class="users-list-item">
+                    <div class="more-users">
+                      <i class="ion-more"></i>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="recommend-box">
+                <div class="sub-title">相关热门文章</div>
+                <ul class="entry-list">
+                  <li class="entry-item">
+                    <div class="item-title text-a ellipsis">Flex 布局新旧混合写法详解（兼容微信）</div>
+                    <div class="item-collection inline-nav">
+                      <div class="action">
+                        <i class="ion-arrow-up-b"></i>
+                        <span class="collection-count">26</span>
+                      </div>
+                      <div class="action">gebin</div>
+                    </div>
+                  </li>
+                  <li class="entry-item">
+                    <div class="item-title text-a ellipsis">Flex 布局新旧混合写法详解（兼容微信）</div>
+                    <div class="item-collection inline-nav">
+                      <div class="action">
+                        <i class="ion-arrow-up-b"></i>
+                        <span class="collection-count">26</span>
+                      </div>
+                      <div class="action">gebin</div>
+                    </div>
+                  </li>
+                  <li class="entry-item">
+                    <div class="item-title text-a ellipsis">Flex 布局新旧混合写法详解（兼容微信）</div>
+                    <div class="item-collection inline-nav">
+                      <div class="action">
+                        <i class="ion-arrow-up-b"></i>
+                        <span class="collection-count">26</span>
+                      </div>
+                      <div class="action">gebin</div>
+                    </div>
+                  </li>
+                  <li class="entry-item">
+                    <div class="item-title text-a ellipsis">CSS 魔法堂：重拾 Border 之——解构 Border</div>
+                    <div class="item-collection inline-nav">
+                      <div class="action">
+                        <i class="ion-arrow-up-b"></i>
+                        <span class="collection-count">26</span>
+                      </div>
+                      <div class="action">gebin</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(function () {
+    $('.entry-detail-main-area .entry-close').click(function () {
+      // window.location.href = "http://gold.xitu.io/";
+      // var strHref = window.location.href;
+      // alert(strHref);
+      // window.location.href = "http://gold.xitu.io/";
+      // window.location.reload();
+      var str = "http://www.baidu.com?id=123&num=6";
+      var params = parseUrlQueryParams(str);
+      console.log(params.id);
+    });
+
+    function parseUrlQueryParams(url) {
+      var obj = {};
+      var queryStr = url.split("?")[1];
+      var queryArr = queryStr.split("&");
+      for(var i=0; i<queryArr.length; i++) {
+        var arr = queryArr[i].split("=");
+        var name = arr[0];
+        var value = arr[1];
+        console.log(name);
+        console.log(value);
+        obj[name] = value;
+      }
+      return obj;
+    }
+
+    $('.entry-collection-button').click(function () {
+      if ($(this).hasClass('collected')) {
+        cancleCollect();
+      } else {
+        setCollect();
+      }
+    });
+
+    function cancleCollect() {
+      $('.entry-collection-button').removeClass('collected');
+      decreaseCollectNum();
+      removeUserAvatar()
+    };
+
+    function setCollect() {
+      $('.entry-collection-button').addClass('collected');
+      increaseCollectNum();
+      collectSuccessToast();
+      insertUserAvatar()
+    };
+
+    function increaseCollectNum() {
+      var num = parseInt($('.entry-collection-button span').text());
+      num++;
+      $('.entry-collection-button span').text(num);
+      $('.entry-detail-right .collection-users .sub-title').text(num+'人收藏了这篇文章');
+      return num;
+    };
+
+    function decreaseCollectNum() {
+      var num = parseInt($('.entry-collection-button span').text());
+      num--;
+      $('.entry-collection-button span').text(num);
+      $('.entry-detail-right .collection-users .sub-title').text(num+'人收藏了这篇文章');
+      return num;
+    };
+
+    function collectSuccessToast() {
+      var strHtml = '<li class="alert fade-right-transition"><div>已经收藏了强大的CSS</div></li>';
+      $('ul.alerts').append(strHtml);
+      $('ul.alerts li').animate({'right':'0em'},800);
+      setTimeout(function () {
+        $('ul.alerts li').animate({'right':'-15em'},800,function () {
+          $(this).remove();
+        });
+      },3000)
+
+    };
+
+    function insertUserAvatar() {
+      // 更新头像的数量
+      // 添加一个头像到最前面
+      var avatar = 'http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHA71OThkdgx3pfglsjLG0yfh2420tJBCBV3zc1OQlia86NJ3tsia8g7bpwic9aR7P9Hmd1Z2JWzdpqQ/0';
+      $('<li class="users-list-item"><img src="'+avatar+'" alt="" class="avatar"></li>').insertBefore('.entry-detail-right .collection-users .users-list li:first');
+    };
+
+    function removeUserAvatar() {
+      // 移除最前面的头像
+      $('.entry-detail-right .collection-users .users-list li:first').remove();
+    };
+
+    $('.comment-box .new-comment-input').focus(function () {
+      $(this).css({'height': '62px','overflowY': 'hidden'});
+
+      if (!$('.comment-box .new-comment-card > div').hasClass('comment-actions')) {
+        var strHtml = '<div class="actions secondary">'
+            +'<div class="action comment-tips">Ctrl or ⌘ + Enter</div><div class="action">'
+            +'<button>评论</button></div></div>';
+        $('<div class="comment-actions">'+strHtml+'</div>').insertAfter($(this));
+      }
+    })
+    .blur(function () {
+      if ($(this).val() == '') {
+        setTimeout(function () {
+          $('.comment-box .comment-actions').remove();
+          $('.comment-box .new-comment-input').css({'height':'2.5em'});
+        },1000)
+      }
+      return;
+    });
+
+    $('.comment-box .new-comment-card').on('click','button',function () {
+      var value = $('.comment-box .new-comment-input').val();
+      // console.log(value);
+      var avatar = "http://wx.qlogo.cn/mmopen/BO1qQiajiacVmOm4ic0iaJhsHA71OThkdgx3pfglsjLG0yfh2420tJBCBV3zc1OQlia86NJ3tsia8g7bpwic9aR7P9Hmd1Z2JWzdpqQ/0";
+      var strHtml = '<img src="'+avatar+'" alt="" class="avatar">'
+                    +'<div class="comment-user-meta"><span class="user-name text-a">旅梦</span>'
+                    +'<span class="user-job-title"></span></div>'
+                    +'<div class="comment-content">'+value+'</div><div class="comment-meta">'
+                    +'<div class="comment-like-box action"><i class="ion-arrow-up-b like-icon"></i>'
+                    +'<span class="like-count">2</span></div>'
+                    +'<div class="reply action">回复</div><div class="action">刚刚</div></div>';
+      $('<li class="comment">'+strHtml+'</li>').insertBefore($('.entry-detail-left .comments li:first'));
+
+      $('.comment-box .new-comment-input').val('').css({'height':'2.5em'});
+      $('.comment-box .comment-actions').remove();
+
+    });
+
+    $('.entry-detail-body .comments').on('click','li .comment-like-box',function () {
+      var ele = $(this).find('.like-count');
+      if ($(this).hasClass('true')) {
+        $(this).removeClass('true');
+        var num = parseInt(ele.text());
+        num--;
+        ele.text(num);
+      } else {
+        $(this).addClass('true');
+        var num = parseInt(ele.text());
+        num++;
+        ele.text(num);
+      }
+    })
+
+    $('.collection-users .users-list li:last').click(function () {
+      $.getJSON('/data.json',{},function (data) {
+        console.log(data[0].src);
+        for (var i = 0; i < data.length; i++) {
+          $('<li class="users-list-item"><img src="'+data[i].src+'" alt="" class="avatar"></li>').insertBefore($('.collection-users .users-list li:last'));
+        }
+      })
+    })
+
+    $('.collection-users .users-list li:eq(1)').mouseover(function () {
+      var avatar = "http://wx.qlogo.cn/mmopen/BO1qQiajiacVnbWcMwj1lTgNZe5O2SAmMfffumS7onAnO7TyNl5tU75Lh61UAJZ54KOqq81Q3ZZTDp6DsQF2r4g7DFnrQCeAGD/0";
+      var strHtml = '<img class="avatar" src="'+avatar+'"><div class="user-name">方宝全</div>'
+                    +'<div class="flex user-meta"><div class="action">0<br>'
+                    +'<small class="text-muted">阅读</small></div>'
+                    +'<div class="action">1<br>'
+                    +'<small class="text-muted">收藏</small></div></div>';
+      if ($('ul.alerts + div').hasClass('tooltip')) {
+        return;
+      } else {
+        $('<div class="tooltip user">'+strHtml+'</div>')
+          .insertBefore($('.main'))
+          .animate({"opacity":"1"},800);
+      }
+    })
+    .mouseout(function () {
+      $('.tooltip').remove();
+    })
+
+  })
+  </script>
+</body>
+</html>
